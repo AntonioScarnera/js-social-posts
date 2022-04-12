@@ -64,15 +64,26 @@ function creaPost(){
     const postBox = document.createElement("div");
     postBox.setAttribute("class", "post");
 
+    let data = new Date(post.created);
+    console.log(data.toLocaleDateString());
+
+    let iniziali = post.author.name;
+    let nomeCognome = iniziali.split(" ");
+    for (let i = 0; i < nomeCognome.length; i++) {
+        nomeCognome[i] = nomeCognome[i][0].charAt(0);
+        iniziali = nomeCognome[0]+ " " + nomeCognome[1];
+    }
+    console.log(iniziali)
+
     const postHeader = `
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="${post.author.image}" alt="${post.author.name}">                    
+                <img class="profile-pic" src="${post.author.image}" alt="${iniziali}">                    
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${post.author.name}</div>
-                <div class="post-meta__time">${post.created}</div>
+                <div class="post-meta__time">${data.toLocaleDateString()}</div>
             </div>                    
         </div>
     </div>`;
