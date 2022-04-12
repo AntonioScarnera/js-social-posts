@@ -91,13 +91,13 @@ function creaPost(){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="${post.id}">
+                <a class="like-button  js-like-button" href="javascript:void(0)" data-postid="${post.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${post.likes}</b> persone
+                Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone
             </div>
         </div> 
     </div> `;
@@ -105,10 +105,38 @@ function creaPost(){
 
     postBox.innerHTML = postHeader + postText + postImage + postFooter;
     container.append(postBox);
+
     
     });
-    const button = document.querySelectorAll('.likes__cta');
-    console.log(button);
+
+
+const button = document.querySelectorAll(".like-button");
+
+const likes = document.querySelectorAll(".js-likes-counter")
+
+
+button.forEach((element, index)=>{
+    let flag = false;
+    element.addEventListener("click", ()=>{
+        if(flag){
+            element.style.color="black";
+            flag = false;    
+            posts[index].likes--;
+            likes[index].innerHTML=posts[index].likes;  
+        }else{
+            element.style.color="green";
+            flag = true;
+            posts[index].likes++;
+            likes[index].innerHTML=posts[index].likes;
+
+        }
+
+        
+    })
+    
+})
+
+
 }
 
 
